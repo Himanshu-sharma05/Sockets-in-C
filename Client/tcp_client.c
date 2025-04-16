@@ -39,13 +39,6 @@ int main(){
         }
     }
 
-    // char* message;
-    // message = "GET \\ HTTP/1.1\r\nHost:google.com\r\n\r\n";
-    // send(socketFD,message,strlen(message),0);
-    // char buffer[1024];
-    // recv(socketFD,buffer,1024,0);
-    // printf("Response was the : %s\n",buffer);
-
     close(socketFD);
     return 0;
 }
