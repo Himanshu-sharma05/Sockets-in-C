@@ -6,6 +6,7 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<string.h>
+#include<stdbool.h>
 
 int main(){
     char* ip = "127.0.0.1";
@@ -24,12 +25,28 @@ int main(){
         printf("connection was not successful\n");
     }
 
-    char* message;
-    message = "GET \\ HTTP/1.1\r\nHost:google.com\r\n\r\n";
-    send(socketFD,message,strlen(message),0);
-    char buffer[1024];
-    recv(socketFD,buffer,1024,0);
-    printf("Response was the : %s\n",buffer);
+    char *line = NULL;
+    size_t lineSize = 0;
+    printf("Type your message ...\n");
+
+    while(true){
+        ssize_t charCount = getline(&line,&lineSize,stdin);
+        if(charCount > 0){
+            if(strcmp(line,"exit\n") == 0){
+                break;
+            }
+            ssize_t amountSent = send(socketFD,line,charCount,0);
+        }
+    }
+
+    // char* message;
+    // message = "GET \\ HTTP/1.1\r\nHost:google.com\r\n\r\n";
+    // send(socketFD,message,strlen(message),0);
+    // char buffer[1024];
+    // recv(socketFD,buffer,1024,0);
+    // printf("Response was the : %s\n",buffer);
+
+    close(socketFD);
     return 0;
 }
 
