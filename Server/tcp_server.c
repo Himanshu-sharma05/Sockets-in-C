@@ -54,10 +54,10 @@ void recieveAndPrintAcceptedDataOnSeperateThread(struct AcceptedSocket *pSocket)
     pthread_t id;
     int *fd_ptr = malloc(sizeof(int)); 
     if (fd_ptr) {
-        *fd_ptr = pSocket->acceptedSocketFD; // Pass the socket FD to the thread function
+        *fd_ptr = pSocket->acceptedSocketFD;
         pthread_create(&id, NULL, recieveAndPrintIncomingData, fd_ptr);
     }
-    free(pSocket); // Free the memory allocated for AcceptedSocket after the thread is created
+    free(pSocket);
 }
 
 struct AcceptedSocket * acceptIncomingConnection(int serverSocketFD) {
